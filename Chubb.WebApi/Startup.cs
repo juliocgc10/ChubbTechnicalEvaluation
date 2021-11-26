@@ -41,7 +41,7 @@ namespace Chubb.WebApi
             {
                 setup.AddPolicy(CorsConfiguration, builder =>
                 {
-                    builder.WithOrigins("*")
+                    builder.WithOrigins("https://localhost:44391", "https://chubb-webapp.azurewebsites.net")
                     .AllowAnyHeader()
                     .AllowAnyMethod(); ;
                 });

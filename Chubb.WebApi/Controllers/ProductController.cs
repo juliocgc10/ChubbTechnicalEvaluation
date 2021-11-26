@@ -43,9 +43,9 @@ namespace Chubb.WebApi.Controllers
             try
             {                
                 IEnumerable<Product> products = string.IsNullOrWhiteSpace(searchText) ? productRepository.GetAll() : productRepository.GetAll(x =>
-                    x.Name.ToLower().Contains(searchText) ||
-                    x.Description.ToLower().Contains(searchText) ||
-                    x.Category.Name.ToLower().Contains(searchText)
+                    x.Name.ToUpper().Contains(searchText.Trim().ToUpper()) ||
+                    x.Description.ToUpper().Contains(searchText.Trim().ToUpper()) ||
+                    x.Category.Name.ToUpper().Contains(searchText.Trim().ToUpper())
                     );
 
                 response.Data = products.Select(x => new ProductDto()
