@@ -12,8 +12,9 @@ namespace Chubb.Domain.Validators.ProductValidator
     {
         public ProductValidator()
         {
-            RuleFor(x => x.Name).NotNull();
-            RuleFor(x => x.Description).NotNull();
+            RuleFor(x => x.Name).NotNull().WithMessage("El nombre es requerido").MaximumLength(50).WithMessage("La longitud máxima para el nombre es de 50");
+            RuleFor(x => x.Description).NotNull().WithMessage("La descripción es requerida").MaximumLength(50).WithMessage("La longitud máxima para el nombre es de 50"); ;
+            RuleFor(x => x.CategoryId).NotNull().WithMessage("La categoría es requerida");
         }
     }
 }
