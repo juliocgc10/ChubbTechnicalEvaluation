@@ -69,3 +69,51 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.error {
+    color: #F00;
+    background-color: #FFF;
+}
+
+.navbar-inverse {
+    background-color: #009dda !important;
+    border-color: #0278a7 !important;
+    box-shadow: 0 6px 8px rgba(0,0,0,.15);
+}
+
+    .navbar-inverse .navbar-brand {
+        color: #fff;
+    }
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: #fff;
+    }
+
+        .navbar-inverse .navbar-nav > li > a:hover {
+            color: #003044;
+            background-color: #fff;
+        }
+
+    .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+        background-color: #0278a7;
+    }
+
+    .navbar-inverse .navbar-toggle {
+        border-color: #0278a7;
+    }
+
+    .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+        color: #fff;
+        background-color: #009dda;
+    }
+
+        .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
+            color: #003044;
+            background-color: #fff;
+        }
+
+    .navbar-nav > .open > a:hover,
+    .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:focus, .navbar-inverse .navbar-nav > .open > a:hover {
+        color: #003044;
+        background-color: #fff;
+    }

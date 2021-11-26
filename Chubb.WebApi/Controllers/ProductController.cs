@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,23 +20,41 @@ namespace Chubb.WebApi.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly ISchoolContext schoolContext;
         private readonly IProductRepository productRepository;
 
-        public ProductController(ISchoolContext schoolContext, IProductRepository productRepository)
+        public ProductController(IProductRepository productRepository)
         {
-            this.schoolContext = schoolContext;
             this.productRepository = productRepository;
         }
 
+        /// <summary>
+        /// Obtiene todos los productos con el parámetro de búsqueda de nombre, descripción o categoría
+        /// </summary>
+        /// <param name="searchText">Parámetro de búsqueda de nombre, descripción o categoría</param>
+        /// <returns></returns>
         // GET: api/<ProductController>
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(string searchText)
         {
-            ResponseServices response = new ResponseServices();
+            ResponseServices response = new();
             try
             {
-                response.Data = productRepository.GetAll();
+                var products = string.IsNullOrWhiteSpace(searchText) ? productRepository.GetAll() : productRepository.GetAll(x =>
+                    x.Name.ToLower().Contains(searchText) ||
+                    x.Description.ToLower().Contains(searchText) ||
+                    x.Category.Name.ToLower().Contains(searchText)
+                    );
+
+                response.Data = products.Select(x => new ProductDto()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    CategoryId = x.CategoryId,
+                    UnitPrice = x.UnitPrice,
+                    CategoryName = x.Category.Name
+                });
+
                 response.IsSuccess = true;
 
             }
@@ -48,20 +67,32 @@ namespace Chubb.WebApi.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Obtiene un producto con base al identificador ingresado
+        /// </summary>
+        /// <param name="id">identificador del producto</param>
+        /// <returns></returns>
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
 
-            ResponseServices response = new ResponseServices();
+            ResponseServices response = new();
             try
-            {                
+            {
 
                 Product product = productRepository.GetBy(x => x.Id == id);
 
                 if (product != null)
                 {
-                    response.Data = product;
+                    response.Data = new ProductDto()
+                    {
+                        Id = product.Id,
+                        Name = product.Name,
+                        Description = product.Description,
+                        CategoryId = product.CategoryId,
+                        UnitPrice = product.UnitPrice
+                    };
                     response.IsSuccess = true;
                 }
                 else
@@ -80,18 +111,22 @@ namespace Chubb.WebApi.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Agrega un producto al repositorio
+        /// </summary>
+        /// <param name="productDto">Producto a agregarse</param>
+        /// <returns></returns>
         // POST api/<ProductController>
         [HttpPost]
         public IActionResult Post(ProductAddDto productDto)
         {
-            ResponseServices response = new ResponseServices();
+            ResponseServices response = new();
             try
-            {               
+            {
                 Product product = new Product()
                 {
                     Name = productDto.Name,
                     UnitPrice = productDto.UnitPrice,
-                    Active = productDto.Active,
                     CategoryId = productDto.CategoryId,
                     Description = productDto.Description,
                     CreatedDate = DateTime.Now
@@ -109,7 +144,7 @@ namespace Chubb.WebApi.Controllers
                 {
                     return Problem(validationResult.ToString("-"));
                 }
-                
+
 
             }
             catch (Exception ex)
@@ -122,11 +157,17 @@ namespace Chubb.WebApi.Controllers
 
         }
 
+        /// <summary>
+        /// Actualiza un prodcuto en el repositorio
+        /// </summary>
+        /// <param name="id">Identificador del producto</param>
+        /// <param name="productDto">Producto a actualizar</param>
+        /// <returns></returns>
         // PUT api/<ProductController>/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, ProductUpdateDto productDto)
         {
-            ResponseServices response = new ResponseServices();
+            ResponseServices response = new();
             try
             {
                 var product = productRepository.GetBy(x => x.Id == id);
@@ -135,7 +176,6 @@ namespace Chubb.WebApi.Controllers
                     product.Name = productDto.Name;
                     product.Description = productDto.Description;
                     product.UnitPrice = productDto.UnitPrice;
-                    product.Active = productDto.Active;
                     product.CategoryId = productDto.CategoryId;
 
                     ProductValidator validator = new ProductValidator();
@@ -151,10 +191,15 @@ namespace Chubb.WebApi.Controllers
                     else
                     {
                         return Problem(validationResult.ToString("-"));
-                    }                
+                    }
 
                     response.IsSuccess = true;
                 }
+                else
+                {
+                    return Problem("No se encontró el producto a actualizar");
+                }
+
 
             }
             catch (Exception ex)
@@ -166,16 +211,29 @@ namespace Chubb.WebApi.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Elimina un producto del repositorio
+        /// </summary>
+        /// <param name="id">Identificador del producto a eliminar</param>
+        /// <returns></returns>
         // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            ResponseServices response = new ResponseServices();
+            ResponseServices response = new();
             try
             {
-                response.Data = productRepository.Delete(id);
 
-                response.IsSuccess = true;
+                var product = productRepository.GetBy(x => x.Id == id);
+                if (product != null)
+                {
+                    response.Data = productRepository.Delete(id);
+                    response.IsSuccess = true;
+                }
+                else
+                {
+                    return Problem("No existe el producto para eliminarse");
+                }                
 
             }
             catch (Exception ex)

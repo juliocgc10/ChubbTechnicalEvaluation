@@ -13,8 +13,4 @@
     <ProjectReference Include="..\Chubb.Resources\Chubb.Resources.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Validators\" />
-  </ItemGroup>
-
 </Project>

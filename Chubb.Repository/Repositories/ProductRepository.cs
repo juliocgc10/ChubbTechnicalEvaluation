@@ -9,12 +9,11 @@ namespace Chubb.Repository.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly ISchoolContext context;
+        private readonly IChubbContext context;        
 
-
-        public ProductRepository(ISchoolContext context)
+        public ProductRepository(IChubbContext context)
         {
-            this.context = context;
+            this.context = context;            
         }
 
         public Product Add(Product product)
@@ -27,10 +26,23 @@ namespace Chubb.Repository.Repositories
 
         public IEnumerable<Product> GetAll(Func<Product, bool> predicate = null)
         {
-            if (predicate != null)
-                return context.Products.Where(predicate).ToList();
+            IEnumerable<Product> products;            
 
-            return context.Products.ToList();
+            if (predicate != null)
+                products = context.Products.Where(predicate);
+            else
+                products = context.Products;
+
+
+            if (products != null && products.Count() > 0)
+            {
+                foreach (var product in products)
+                {
+                    product.Category = context.Categories.FirstOrDefault(x => x.Id == product.CategoryId);
+                }
+            }
+
+            return products;
         }
 
         public Product GetBy(Func<Product, bool> predicate = null)

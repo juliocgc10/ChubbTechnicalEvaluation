@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Chubb.Repository
 {
-    public class SchoolContext : ISchoolContext
-    {        
+    public class SchoolContext : IChubbContext
+    {
         private List<Product> _products;
         public List<Product> Products
         {
@@ -37,7 +37,7 @@ namespace Chubb.Repository
         }
 
         public SchoolContext()
-        {            
+        {
 
             SetCategories();
 
@@ -55,9 +55,9 @@ namespace Chubb.Repository
         private void SetCategories()
         {
             _categories = new List<Category>() {
-            new Category(){ Id = 1, Name = "Lacteo", Active = true, CreatedDate = DateTime.Now},
-            new Category(){ Id = 2, Name = "Pan", Active = true, CreatedDate = DateTime.Now},
-            new Category(){ Id = 3, Name = "Gaseosa", Active = true, CreatedDate = DateTime.Now},
+            new Category(){ Id = 1, Name = "Lácteos",CreatedDate = DateTime.Now},
+            new Category(){ Id = 2, Name = "Enlatados",  CreatedDate = DateTime.Now},
+            new Category(){ Id = 3, Name = "Gaseosas", CreatedDate = DateTime.Now},
             };
         }
 

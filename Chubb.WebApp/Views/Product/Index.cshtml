@@ -1,0 +1,139 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+}
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" id="searchNav" href="#searchTab">Buscar</a></li>
+    <li><a data-toggle="tab" id="productNav" href="#productTab">Producto</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="searchTab" class="tab-pane fade in active">
+        <form id="searchForm" class="form-group" name="searchForm" role="form">
+            <div class="panel panel-default">
+
+                <div class="panel-body">
+                    <div class="col-md-offset-6 col-md-6">
+                        <div class="input-group">
+                            <input type="text" id="inputSearchText" name="inputSearchText" class="form-control pull-right" placeholder="Ingrese un valor">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="btnSearchProduct">Buscar</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-12"><br /></div>
+
+                    <table id="tableProducts" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed table-responsive" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center">Descripción</th>
+                                <th class="text-center">Precio</th>
+                                <th class="text-center">Categoría</th>
+                                <th class="text-center"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+
+            </div>
+
+        </form>
+
+
+    </div>
+    <div id="productTab" class="tab-pane fade">
+        <form id="productForm" class="form-group" name="productForm" role="form">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <h1 id="titleProduct">Agregar Producto</h1>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <fieldset>
+                        <legend>Datos del producto</legend>
+                        <input type="hidden" id="hdnProductId" name="hdnProductId" />
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="control-label" for="inputName">Nombre</label>
+                                <input class="form-control" id="inputName" name="Name" type="text" required maxlength="50" />
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label class="control-label" for="inputDescription">Description</label>
+                                <input class="form-control" id="inputDescription" name="Description" type="text" required maxlength="50" />
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="control-label" for="inputUnitPrice">Precio</label>
+                                <input class="form-control" id="inputUnitPrice" name="UnitPrice" type="number" required maxlength="10" />
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label class="control-label" for="inputGender">Categoría</label>
+                                <select class="form-control" id="inputCategoryId" name="CategoryId" required>
+                                    
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-md-12"></div>
+
+                    </fieldset>
+                    <div class="row"></div>
+                </div>
+                <div class="panel-footer text-right">
+                    <button type="button" class="btn btn-primary" id="btnSaveProduct" name="btnSaveProduct"><i class="glyphicon glyphicon-upload"></i>&nbsp;Guardar</button>
+                </div>
+
+            </div>
+        </form>
+
+
+    </div>
+</div>
+@section scripts{
+    <script src="~/js/product.js"></script>
+    <script>
+    $(document).ready(function () {
+
+        var args = {
+            UrlWepApi: '@ViewBag.UrlWebApi',
+            Messages: {
+                @*Student_Add: '@Resource.Student_Add',
+                Student_Active_Span: '@Resource.Student_Active_Span',
+                Student_Inactive_Span: '@Resource.Student_Inactive_Span',
+                Student_Delete_Title: '@Resource.Student_Delete_Title',
+                Student_Edit_Title: '@Resource.Student_Edit_Title',
+                Student_Confirm_Inactive: '@Resource.Student_Confirm_Inactive',
+                Student_Yes_Confirm: '@Resource.Student_Yes_Confirm',
+                Student_No_Confirm: '@Resource.Student_No_Confirm',
+                Student_Message_Inactive: '@Resource.Student_Message_Inactive',
+                Student_Edit: '@Resource.Student_Edit',
+                Student_PasswordFormatCheck: '@Resource.Student_PasswordFormatCheck',
+                Student_CanUseEmail: '@Resource.Student_CanUseEmail',
+                Student_CanUseCURP: '@Resource.Student_CanUseCURP',
+                Student_CanUseRFC: '@Resource.Student_CanUseRFC',
+                Student_ConfirmAdd: '@Resource.Student_ConfirmAdd',
+                Student_ConfirmUpdate: '@Resource.Student_ConfirmUpdate'*@
+            }
+        };
+
+        Chubb.Product.npMainFunction(args);
+
+    });
+
+    </script>
+}

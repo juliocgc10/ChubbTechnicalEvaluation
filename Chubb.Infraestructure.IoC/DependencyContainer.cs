@@ -12,10 +12,11 @@ namespace Chubb.Infraestructure.IoC
     {
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
+            
+            services.AddSingleton<IChubbContext, SchoolContext>();
             services.AddScoped<IValidator<Product>, ProductValidator>();
-            services.AddSingleton<ISchoolContext, SchoolContext>();
             services.AddScoped<IProductRepository, ProductRepository>();
-            //services.AddScoped<ICategoryRepository, CategoryRepository>();            
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             return services;
         }

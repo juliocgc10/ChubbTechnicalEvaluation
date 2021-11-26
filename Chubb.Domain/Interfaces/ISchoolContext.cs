@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Chubb.Domain.Interfaces
 {
-    public interface ISchoolContext
+    public interface IChubbContext
     {
         List<Product> Products { get; set; }
         List<Category> Categories { get; set; }

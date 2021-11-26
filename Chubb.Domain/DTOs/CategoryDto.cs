@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Chubb.Domain.Entities
+namespace Chubb.Domain.DTOs
 {
-    public class Category
+    public class CategoryDto
     {
         public int Id { get; set; }
-        public string Name { get; set; }        
-        public DateTime CreatedDate { get; set; }
+        public string Name { get; set; }
     }
 }
