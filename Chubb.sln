@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chubb.Repository", "Chubb.Repository\Chubb.Repository.csproj", "{FA6FAB30-0675-4189-B5FA-0D4FFAAD6014}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chubb.Repository", "Chubb.Repository\Chubb.Repository.csproj", "{FA6FAB30-0675-4189-B5FA-0D4FFAAD6014}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chubb.Domain", "Chubb.Domain\Chubb.Domain.csproj", "{7027DED6-64DE-452B-A787-61056395553E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chubb.Domain", "Chubb.Domain\Chubb.Domain.csproj", "{7027DED6-64DE-452B-A787-61056395553E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chubb.WebApi", "Chubb.WebApi\Chubb.WebApi.csproj", "{1FACFB96-A4EB-4757-BF91-009B9A6A58AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chubb.WebApi", "Chubb.WebApi\Chubb.WebApi.csproj", "{1FACFB96-A4EB-4757-BF91-009B9A6A58AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chubb.Infraestructure.IoC", "Chubb.Infraestructure.IoC\Chubb.Infraestructure.IoC.csproj", "{49CCADCA-24ED-45FC-BA3F-E11ED0946A21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chubb.Infraestructure.IoC", "Chubb.Infraestructure.IoC\Chubb.Infraestructure.IoC.csproj", "{49CCADCA-24ED-45FC-BA3F-E11ED0946A21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chubb.Resources", "Chubb.Resources\Chubb.Resources.csproj", "{5DD91520-F04C-4725-9BA4-0F7DFDD8E3A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chubb.Resources", "Chubb.Resources\Chubb.Resources.csproj", "{5DD91520-F04C-4725-9BA4-0F7DFDD8E3A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chubb.WebApp", "Chubb.WebApp\Chubb.WebApp.csproj", "{F1023879-905B-446F-B6C5-05DC577D5753}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{5DD91520-F04C-4725-9BA4-0F7DFDD8E3A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DD91520-F04C-4725-9BA4-0F7DFDD8E3A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DD91520-F04C-4725-9BA4-0F7DFDD8E3A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1023879-905B-446F-B6C5-05DC577D5753}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1023879-905B-446F-B6C5-05DC577D5753}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1023879-905B-446F-B6C5-05DC577D5753}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1023879-905B-446F-B6C5-05DC577D5753}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
