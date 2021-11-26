@@ -7,6 +7,7 @@ using Chubb.Domain.Validators.ProductValidator;
 using Chubb.Resources;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,10 +22,12 @@ namespace Chubb.WebApi.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductRepository productRepository;
+        private readonly ILogger<IProductRepository> logger;
 
-        public ProductController(IProductRepository productRepository)
+        public ProductController(IProductRepository productRepository, ILogger<IProductRepository> logger)
         {
             this.productRepository = productRepository;
+            this.logger = logger;
         }
 
         /// <summary>
@@ -38,8 +41,8 @@ namespace Chubb.WebApi.Controllers
         {
             ResponseServices response = new();
             try
-            {
-                var products = string.IsNullOrWhiteSpace(searchText) ? productRepository.GetAll() : productRepository.GetAll(x =>
+            {                
+                IEnumerable<Product> products = string.IsNullOrWhiteSpace(searchText) ? productRepository.GetAll() : productRepository.GetAll(x =>
                     x.Name.ToLower().Contains(searchText) ||
                     x.Description.ToLower().Contains(searchText) ||
                     x.Category.Name.ToLower().Contains(searchText)
@@ -60,7 +63,7 @@ namespace Chubb.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                response.AddException(ex);
+                logger.LogCritical(response.AddException(ex));
                 return BadRequest(response);
             }
 
@@ -104,7 +107,7 @@ namespace Chubb.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                response.AddException(ex);
+                logger.LogCritical(response.AddException(ex));
                 return BadRequest(response);
             }
 
@@ -149,7 +152,7 @@ namespace Chubb.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                response.AddException(ex);
+                logger.LogCritical(response.AddException(ex));
                 return BadRequest(response);
             }
 
@@ -204,7 +207,7 @@ namespace Chubb.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                response.AddException(ex);
+                logger.LogCritical(response.AddException(ex));
                 return BadRequest(response);
             }
 
@@ -233,12 +236,13 @@ namespace Chubb.WebApi.Controllers
                 else
                 {
                     return Problem("No existe el producto para eliminarse");
-                }                
+                }
 
             }
             catch (Exception ex)
             {
-                response.AddException(ex);
+                
+                logger.LogCritical(response.AddException(ex));
                 return BadRequest(response);
             }
 

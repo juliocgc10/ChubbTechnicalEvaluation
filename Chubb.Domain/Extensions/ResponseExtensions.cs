@@ -11,12 +11,12 @@ namespace Chubb.Domain.Extensions
 {
     public static class ResponseServicesExtensions
     {
-        public static void AddException(this ResponseServices response, Exception ex)
+        public static string AddException(this ResponseServices response, Exception ex)
         {
             response.IsSuccess = false;
             response.IsException = true;
             response.Message = string.Format(ExceptionMessage.ErrorShowUser, DateTime.Now.ToString(), new StackTrace().GetFrame(1).GetMethod().Name, ex.Message);
-            response.MessageException = string.Format(ExceptionMessage.ErrorException, DateTime.Now.ToString(), ex.StackTrace, ex.GetOriginalException().Message);
+            return string.Format(ExceptionMessage.ErrorException, DateTime.Now.ToString(), ex.StackTrace, ex.GetOriginalException().Message);
         }
     }
 }

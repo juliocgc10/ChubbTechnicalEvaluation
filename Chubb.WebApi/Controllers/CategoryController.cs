@@ -4,6 +4,7 @@ using Chubb.Domain.Extensions;
 using Chubb.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,12 @@ namespace Chubb.WebApi.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryRepository categoryRepository;
+        private readonly ILogger<IProductRepository> logger;
 
-        public CategoryController(IChubbContext schoolContext, ICategoryRepository categoryRepository)
+        public CategoryController(ICategoryRepository categoryRepository, ILogger<IProductRepository> logger)
         {
             this.categoryRepository = categoryRepository;
+            this.logger = logger;
         }
 
         // GET: api/<ProductController>
@@ -41,7 +44,7 @@ namespace Chubb.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                response.AddException(ex);
+                logger.LogCritical(response.AddException(ex));
                 return BadRequest(response);
             }
 
