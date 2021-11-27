@@ -13,7 +13,7 @@ namespace Chubb.Infraestructure.IoC
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             
-            services.AddSingleton<IChubbContext, SchoolContext>();
+            services.AddSingleton<IChubbContext, ChubbContext>();
             services.AddScoped<IValidator<Product>, ProductValidator>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
